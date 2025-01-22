@@ -2,10 +2,15 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from fastapi import FastAPI, HTTPException
 from http import HTTPStatus
 
+from fastapi import FastAPI, HTTPException
+from sqlalchemy import create_engine, select, or_
+from sqlalchemy.orm import Session
+
+from src.models import User
 from src.schemas import Message, UserSchema, UserPublic, UserDB, UserList
+from src.settings import Settings
 
 app = FastAPI()
 
@@ -17,14 +22,34 @@ def read_root():
 
 @app.post('/users/', status_code=HTTPStatus.CREATED, response_model=UserPublic)
 def create_user(user: UserSchema):
+    engine = create_engine(Settings().DATABASE_URL)
 
-    user_with_id = UserDB(
-        id=len(database) + 1, **user.model_dump()
-    )
-    
-    database.append(user_with_id)
+    with Session(engine) as session:
+        db_user = session.scalar(
+            select(User).where(
+                or_(User.username == user.username, User.email == user.email)
+            )
+        )
 
-    return user_with_id
+        if db_user:
+            if db_user.username == user.username:
+                raise HTTPException(
+                    status_code=HTTPStatus.BAD_REQUEST,
+                    detail='Username already exists'
+                )
+            elif db_user.email == user.email:
+                raise HTTPException(
+                    status_code=HTTPStatus.BAD_REQUEST,
+                    detail='Email already exists'
+                )
+            
+    db_user = User(username=user.username, email=user.email, password=user.password)
+
+    session.add(db_user)
+    session.commit()
+    session.refresh(db_user)
+
+    return db_user
 
 @app.get('/users/', response_model = UserList)
 def read_users():
