@@ -3,3 +3,4 @@ fastapi[standard]
 sqlalchemy
 alembic
 pydantic-settings
+pwdlib[argon2]
