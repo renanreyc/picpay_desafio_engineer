@@ -4,3 +4,5 @@ sqlalchemy
 alembic
 pydantic-settings
 pwdlib[argon2]
+python-multipart
+pyjwt

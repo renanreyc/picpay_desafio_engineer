@@ -15,6 +15,8 @@ from src.models import table_registry, User
 from src.app import app
 from src.database import get_session
 
+from src.utils.password import hash_password
+
 @pytest.fixture()
 def client(session):
 
@@ -63,10 +65,22 @@ def mock_db_time():
 
 @pytest.fixture()
 def user(session):
-    user = User(username='test', email = 'test@test.com', password='test')
+    monkey_pass = 'Test@1234'
+    user = User(username='test', email = 'test@test.com', password=hash_password(monkey_pass))
     
     session.add(user)
     session.commit()
     session.refresh(user)
 
+    user.clean_password = monkey_pass
+
     return user
+
+@pytest.fixture
+def token(client, user):
+    response = client.post(
+        '/auth/token',
+        data = {'username': user.email, 'password': user.clean_password}
+    )
+
+    return response.json()['access_token']
