@@ -1,4 +1,5 @@
 [tool.taskipy.tasks]
 test = "pytest --cov=src -vv"
 run = "fastapi dev .\\src\\app.py"
+run_prd = "fastapi prd .\\src\\app.py"
 deps = "pip install -r requirements-dev.txt"
