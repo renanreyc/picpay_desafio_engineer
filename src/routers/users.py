@@ -90,7 +90,7 @@ def update_user(
 
     # to do: imp para current_user para o user alterar apenas seu próprio user.
     # if current_user.id != user_id:
-    #     raise HTTPException(status_code=400, detail='Not enough permission')
+    #     raise HTTPException(status_code=HTTPStatus.FORBIDDEN, detail='Not enough permission')
 
     db_user.email = user.email
     db_user.username = user.username
@@ -118,7 +118,7 @@ def delete_user(
     
     # to do: imp current_user para o user deletar apenas seu próprio user.
     # if current_user.id != user_id:
-    #     raise HTTPException(status_code=HTTPStatus.BAD_REQUEST, detail='Not enough permission')
+    #     raise HTTPException(status_code=HTTPStatus.FORBIDDEN, detail='Not enough permission')
 
     session.delete(db_user)
     session.commit()
