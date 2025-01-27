@@ -1,6 +1,6 @@
 # Picpay Desafio Engineer
 
-Este projeto consiste de uma aplicação Web desenvolvido com FastAPI. A principal finalidade dele é as operações CRUD (GET, POST, PUT, DELETE) para a entidade "User" ou "Usuário, garantindo seus testes unitários como também a qualidade e estrutura do código.
+Este projeto consiste de uma aplicação Web desenvolvido com FastAPI. A principal finalidade dele são a disponibilidade das operações de CRUD (GET, POST, PUT, DELETE) para a entidade "User/Usuário", garantindo seus testes unitários como também a qualidade e estrutura do código.
 
 ## Pré-requisitos
 
