@@ -6,7 +6,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Python Installation
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Install Python 
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      
+      - name: Install Requirements
+        run: pip install -r requeriments.txt 
+      
+      - name: Install Production Requirements
+        run: pip install -r requirements.txt
+
+      - name: Install Development Requirements
+        run: pip install -r requirements-dev.txt
