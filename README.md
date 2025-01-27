@@ -39,8 +39,8 @@ python --version
 5. Crie o arquivo `.env` de acordo com o `.env.example`:
     ```
        DATABASE_URL="sqlite:///database.db"
-      SECRET_KEY="your-secret-key"
-      ALGORITHM="HS256"
+      SECRET_KEY=""
+      ALGORITHM=""
       ACCESS_TOKEN_EXPIRE_MINUTES=30
     ```
    
