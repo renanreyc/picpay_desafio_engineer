@@ -1,3 +1,5 @@
 pytest
 pytest-cov
 taskipy
+factory-boy
+freezegun 
