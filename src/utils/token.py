@@ -2,7 +2,7 @@ from datetime import datetime, timedelta, timezone
 from http import HTTPStatus
 
 from jwt import encode, decode, DecodeError
-
+from jwt.exceptions import ExpiredSignatureError
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy import select
@@ -17,7 +17,7 @@ settings = Settings()
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/token")
 
-def create_acess_token(data_payload: dict):
+def create_access_token(data_payload: dict):
     to_encode = data_payload.copy()
 
     expire = datetime.now(tz=timezone.utc) + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
@@ -41,8 +41,11 @@ def get_current_user(
         if not email:
             raise credentials_exception
         # token_data = TokenData(username=username)
+    except ExpiredSignatureError:
+        raise credentials_exception
     except DecodeError:
         raise credentials_exception
+
 
     user_db = session.scalar(
         select(User).where(User.email == email)
