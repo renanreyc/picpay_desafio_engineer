@@ -49,6 +49,7 @@ python --version
 
 6. Após a inicialização, você pode acessar a interface da aplicação no endpoint  [localhost](http://127.0.0.1:8000), como também sua documentação em [docs](http://127.0.0.1:8000/docs).
 
+(importante!) No endereço de documentação há toda a documentação necessária para acesso, testes e consumo da aplicação.
 
 ## Testes e Ambiente de Desenvolvimento
 
