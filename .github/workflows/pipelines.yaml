@@ -19,3 +19,6 @@ jobs:
 
       - name: Install Development Requirements
         run: pip install -r requirements-dev.txt
+      
+      - name: Execute tests
+        run: task test
