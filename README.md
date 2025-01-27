@@ -36,7 +36,16 @@ python --version
     pip install -r requirements.txt
     ```
 
-5. Para inicialização da aplicação, execute o seguinte comando de acordo com seu sistema operacional:
+5. Crie o arquivo `.env` de acordo com o `.env.example`:
+    ```
+       DATABASE_URL="sqlite:///database.db"
+      SECRET_KEY="your-secret-key"
+      ALGORITHM="HS256"
+      ACCESS_TOKEN_EXPIRE_MINUTES=30
+    ```
+   
+
+7. Para inicialização da aplicação, execute o seguinte comando de acordo com seu sistema operacional:
 
 - Windows:
     ```bash
